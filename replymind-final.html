@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ReplyMind uses AI to automatically craft professional responses to your Google reviews — improving your SEO ranking and customer trust on autopilot.">
+<meta property="og:title" content="ReplyMind — AI-Powered Google Review Responses">
+<meta property="og:description" content="Never ignore a Google review again. AI-crafted responses in your brand voice, sent within hours.">
+<meta name="twitter:card" content="summary_large_image">
+<title>ReplyMind — AI Review Responses That Grow Your Business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & VARS ── */
+:root {
+  --bg: #06070d;
+  --bg1: #0a0c16;
+  --bg2: #0e1020;
+  --card: rgba(255,255,255,.04);
+  --card2: rgba(255,255,255,.07);
+  --border: rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.15);
+  --text: #e4e7f2;
+  --muted: #6b7280;
+  --muted2: #9ca3af;
+  --blue: #4f8cff;
+  --blue2: #6ea6ff;
+  --blue-glow: rgba(79,140,255,.18);
+  --blue-glow2: rgba(79,140,255,.08);
+  --green: #34d399;
+  --white: #ffffff;
+  --grad: linear-gradient(135deg,#4f8cff,#818cf8,#a78bfa);
+}
+[data-theme="light"]{
+  --bg:#f8f9ff;--bg1:#f0f2fc;--bg2:#e8ebf8;
+  --card:rgba(0,0,0,.04);--card2:rgba(0,0,0,.07);
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.15);
+  --text:#1a1d2e;--muted:#9ca3af;--muted2:#6b7280;
+  --blue-glow:rgba(79,140,255,.12);--blue-glow2:rgba(79,140,255,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ── CURSOR ── */
+#c1{position:fixed;width:6px;height:6px;border-radius:50%;background:#fff;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,background .2s;mix-blend-mode:difference;}
+body{cursor:none;}
+a,button,input,textarea,select,[role=button]{cursor:none!important;}
+
+/* ── BACKGROUND ── */
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 50% at 20% 20%,rgba(79,140,255,.04),transparent),
+             radial-gradient(ellipse 60% 60% at 80% 80%,rgba(129,140,248,.03),transparent);}
+
+/* ── LAYOUT ── */
+.wrap{position:relative;z-index:10;max-width:1120px;margin:0 auto;padding:0 28px;}
+.wrap-sm{max-width:760px;margin:0 auto;padding:0 28px;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;border-bottom:1px solid var(--border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+[data-theme="dark"] nav{background:rgba(6,7,13,.85);}
+[data-theme="light"] nav{background:rgba(248,249,255,.9);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{display:flex;align-items:center;gap:9px;font-family:'Syne',sans-serif;font-size:1.12rem;font-weight:800;letter-spacing:-.02em;color:var(--white);}
+[data-theme="light"] .logo{color:var(--text);}
+.logo-icon{width:30px;height:30px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;box-shadow:0 0 20px rgba(79,140,255,.4);}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-size:.875rem;color:var(--muted2);transition:color .2s;font-weight:500;}
+.nav-links a:hover{color:var(--text);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.btn-ghost{padding:8px 16px;font-size:.875rem;color:var(--muted2);border:1px solid var(--border);background:transparent;border-radius:8px;font-family:inherit;transition:all .2s;font-weight:500;}
+.btn-ghost:hover{color:var(--text);border-color:var(--border2);}
+.btn-primary{padding:9px 20px;font-size:.875rem;background:var(--blue);color:#fff;border:none;border-radius:8px;font-family:inherit;font-weight:600;transition:all .25s;box-shadow:0 0 0 0 rgba(79,140,255,.5);}
+.btn-primary:hover{background:#3a7bf5;box-shadow:0 0 0 4px rgba(79,140,255,.2);}
+.theme-btn{width:36px;height:36px;border:1px solid var(--border);background:var(--card);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s;color:var(--muted2);}
+.theme-btn:hover{border-color:var(--border2);color:var(--text);}
+.hamburger{display:none;flex-direction:column;gap:4px;width:36px;height:36px;border:1px solid var(--border);background:var(--card);border-radius:8px;align-items:center;justify-content:center;}
+.hamburger span{width:16px;height:1.5px;background:var(--muted2);}
+
+/* ── HERO ── */
+.hero{padding:96px 0 80px;text-align:center;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-glow2);border:1px solid rgba(79,140,255,.25);padding:6px 16px;border-radius:100px;font-size:.78rem;color:var(--blue2);font-weight:500;margin-bottom:32px;animation:fadeUp .6s ease both;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:24px;animation:fadeUp .7s .1s ease both;}
+.hero h1 .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1.125rem;color:var(--muted2);max-width:560px;margin:0 auto 40px;line-height:1.75;font-weight:400;animation:fadeUp .7s .2s ease both;}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:56px;animation:fadeUp .7s .3s ease both;}
+.btn-hero{padding:13px 28px;font-size:1rem;background:var(--blue);color:#fff;border:none;border-radius:10px;font-family:inherit;font-weight:600;box-shadow:0 8px 32px rgba(79,140,255,.35);transition:all .25s;}
+.btn-hero:hover{background:#3a7bf5;transform:translateY(-1px);box-shadow:0 12px 40px rgba(79,140,255,.45);}
+.btn-hero-ghost{padding:13px 28px;font-size:1rem;background:var(--card2);color:var(--text);border:1px solid var(--border2);border-radius:10px;font-family:inherit;font-weight:500;transition:all .25s;}
+.btn-hero-ghost:hover{background:var(--card2);border-color:rgba(255,255,255,.25);}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:8px;font-size:.8rem;color:var(--muted);animation:fadeUp .7s .4s ease both;}
+.trust-stars{color:#f59e0b;letter-spacing:-2px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO CARD (Preview) ── */
+.hero-preview{max-width:720px;margin:0 auto;border:1px solid var(--border);border-radius:16px;background:var(--bg1);overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.5),0 0 0 1px var(--border);animation:fadeUp .7s .4s ease both;}
+.preview-topbar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--bg2);}
+.preview-dot{width:10px;height:10px;border-radius:50%;}
+.preview-title{font-size:.75rem;color:var(--muted);margin-left:6px;font-weight:500;}
+.preview-body{padding:24px;}
+.review-card-ui{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
+.rev-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.rev-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#fff;}
+.rev-name{font-size:.875rem;font-weight:600;}
+.rev-date{font-size:.72rem;color:var(--muted);margin-top:1px;}
+.rev-stars{color:#f59e0b;font-size:.9rem;}
+.rev-text{font-size:.82rem;color:var(--muted2);line-height:1.6;}
+.ai-response{background:rgba(79,140,255,.06);border:1px solid rgba(79,140,255,.2);border-radius:12px;padding:18px;position:relative;}
+.ai-label{display:flex;align-items:center;gap:6px;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);font-weight:600;margin-bottom:10px;}
+.ai-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:blink 1.5s infinite;}
+.ai-text{font-size:.82rem;color:var(--muted2);line-height:1.7;}
+
+/* ── LOGOS ── */
+.logos-section{padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.logos-label{text-align:center;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:28px;font-weight:500;}
+.logos-row{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+.logo-item{font-size:.9rem;font-weight:700;color:var(--muted);letter-spacing:-.02em;transition:color .2s;}
+.logo-item:hover{color:var(--muted2);}
+
+/* ── STATS ── */
+.stats-section{padding:80px 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.stat-item{background:var(--bg);padding:36px 24px;text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;letter-spacing:-.04em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px;}
+.stat-label{font-size:.82rem;color:var(--muted);line-height:1.5;}
+
+/* ── PROBLEM SECTION ── */
+.section{padding:96px 0;}
+.section-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue2);font-weight:600;margin-bottom:16px;}
+.section h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px;}
+.section h2 .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.section-sub{font-size:1.05rem;color:var(--muted2);line-height:1.75;max-width:520px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.two-col.reverse{direction:rtl;}
+.two-col.reverse > *{direction:ltr;}
+.problem-list{display:flex;flex-direction:column;gap:20px;margin-top:36px;}
+.problem-item{display:flex;gap:14px;align-items:flex-start;}
+.problem-icon{width:40px;height:40px;border-radius:10px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;margin-top:2px;}
+.problem-title{font-size:.95rem;font-weight:600;margin-bottom:4px;}
+.problem-desc{font-size:.85rem;color:var(--muted2);line-height:1.65;}
+
+/* ── VISUAL BLOCK ── */
+.visual-block{background:var(--bg1);border:1px solid var(--border);border-radius:20px;padding:28px;position:relative;overflow:hidden;}
+.visual-block::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(79,140,255,.06),transparent);pointer-events:none;}
+.metric-row{display:flex;gap:12px;margin-bottom:16px;}
+.metric{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;}
+.metric-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:4px;}
+.metric-val.red{color:#ef4444;}
+.metric-val.green{color:var(--green);}
+.metric-val.blue{color:var(--blue);}
+.metric-label{font-size:.72rem;color:var(--muted);line-height:1.4;}
+.bar-chart{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.bar-label{font-size:.72rem;color:var(--muted);margin-bottom:12px;display:flex;justify-content:space-between;}
+.bar-item{margin-bottom:10px;}
+.bar-name{font-size:.72rem;color:var(--muted2);margin-bottom:5px;display:flex;justify-content:space-between;}
+.bar-bg{height:8px;background:var(--card2);border-radius:100px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:100px;transition:width 1s ease;}
+.bar-fill.b1{width:82%;background:var(--green);}
+.bar-fill.b2{width:31%;background:var(--muted);}
+.bar-fill.b3{width:18%;background:rgba(239,68,68,.7);}
+
+/* ── HOW IT WORKS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.step-card{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;transition:border-color .3s,transform .3s;}
+.step-card:hover{border-color:rgba(79,140,255,.35);transform:translateY(-4px);}
+.step-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;letter-spacing:-.04em;opacity:.08;position:absolute;top:12px;right:20px;line-height:1;}
+.step-icon{width:48px;height:48px;border-radius:12px;background:var(--blue-glow);border:1px solid rgba(79,140,255,.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px;}
+.step-title{font-size:1rem;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;}
+.step-desc{font-size:.85rem;color:var(--muted2);line-height:1.7;}
+.step-connector{display:flex;align-items:center;justify-content:center;padding-top:60px;}
+.step-connector svg{color:var(--muted);opacity:.3;}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:56px;}
+.feature-card{background:var(--bg);padding:32px;transition:background .3s;}
+.feature-card:hover{background:var(--bg1);}
+.feature-icon{width:44px;height:44px;border-radius:10px;background:var(--blue-glow);border:1px solid rgba(79,140,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:18px;}
+.feature-title{font-size:.95rem;font-weight:700;margin-bottom:8px;letter-spacing:-.01em;}
+.feature-desc{font-size:.82rem;color:var(--muted2);line-height:1.7;}
+.feature-tag{display:inline-block;margin-top:12px;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);font-weight:600;background:var(--blue-glow2);border:1px solid rgba(79,140,255,.18);padding:3px 8px;border-radius:4px;}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;align-items:start;}
+.price-card{background:var(--bg1);border:1px solid var(--border);border-radius:20px;padding:32px;transition:all .3s;}
+.price-card:hover{border-color:var(--border2);}
+.price-card.featured{background:var(--bg);border-color:var(--blue);box-shadow:0 0 0 1px var(--blue),0 32px 80px rgba(79,140,255,.12);position:relative;}
+.price-card.featured::before{content:'Most Popular';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;}
+.plan-name{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);font-weight:600;margin-bottom:12px;}
+.plan-price{display:flex;align-items:flex-end;gap:4px;margin-bottom:6px;}
+.plan-price .dollar{font-size:1.3rem;font-weight:700;margin-bottom:8px;color:var(--muted2);}
+.plan-price .num{font-family:'Syne',sans-serif;font-size:3.5rem;font-weight:800;letter-spacing:-.04em;line-height:1;}
+.plan-price .period{font-size:.85rem;color:var(--muted);margin-bottom:8px;}
+.plan-desc{font-size:.82rem;color:var(--muted2);margin-bottom:24px;line-height:1.6;}
+.plan-divider{height:1px;background:var(--border);margin:24px 0;}
+.plan-features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.plan-feature{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted2);}
+.plan-feature .check{width:18px;height:18px;border-radius:50%;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--green);flex-shrink:0;}
+.plan-feature .cross{width:18px;height:18px;border-radius:50%;background:rgba(107,114,128,.08);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--muted);flex-shrink:0;}
+.btn-plan{width:100%;padding:12px;font-size:.9rem;font-weight:600;border-radius:10px;font-family:inherit;transition:all .25s;border:1px solid var(--border);}
+.btn-plan.primary{background:var(--blue);color:#fff;border-color:var(--blue);}
+.btn-plan.primary:hover{background:#3a7bf5;}
+.btn-plan.outline{background:transparent;color:var(--text);}
+.btn-plan.outline:hover{background:var(--card2);border-color:var(--border2);}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;}
+.testi-card{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color .3s;}
+.testi-card:hover{border-color:var(--border2);}
+.testi-stars{color:#f59e0b;font-size:.9rem;margin-bottom:14px;}
+.testi-text{font-size:.875rem;color:var(--muted2);line-height:1.75;margin-bottom:18px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#fff;flex-shrink:0;}
+.testi-name{font-size:.85rem;font-weight:600;}
+.testi-role{font-size:.73rem;color:var(--muted);}
+
+/* ── OLLAMA / N8N SECTION ── */
+.tech-section{padding:96px 0;background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.workflow-vis{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;font-family:'Courier New',monospace;font-size:.78rem;}
+.wf-title{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;font-family:'Inter',sans-serif;}
+.wf-step{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;margin-bottom:6px;background:var(--card);border:1px solid var(--border);}
+.wf-step.active{background:var(--blue-glow2);border-color:rgba(79,140,255,.3);}
+.wf-icon{font-size:1rem;flex-shrink:0;}
+.wf-label{font-size:.78rem;font-family:'Inter',sans-serif;font-weight:500;}
+.wf-badge{margin-left:auto;font-size:.6rem;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.25);color:var(--green);padding:2px 7px;border-radius:4px;font-family:'Inter',sans-serif;white-space:nowrap;}
+.wf-arrow{text-align:center;color:var(--muted);font-size:.8rem;margin-bottom:6px;opacity:.5;}
+.tech-features{display:flex;flex-direction:column;gap:20px;margin-top:32px;}
+.tech-feat{display:flex;gap:14px;}
+.tech-feat-icon{width:40px;height:40px;border-radius:10px;background:var(--blue-glow);border:1px solid rgba(79,140,255,.2);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.tech-feat-title{font-size:.92rem;font-weight:600;margin-bottom:3px;}
+.tech-feat-desc{font-size:.82rem;color:var(--muted2);line-height:1.65;}
+
+/* ── FAQ ── */
+.faq-list{margin-top:56px;display:flex;flex-direction:column;gap:1px;}
+.faq-item{background:var(--bg1);border:1px solid var(--border);overflow:hidden;}
+.faq-item:first-child{border-radius:12px 12px 0 0;}
+.faq-item:last-child{border-radius:0 0 12px 12px;}
+.faq-q{width:100%;background:transparent;border:none;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;font-family:'Inter',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);transition:background .2s;}
+.faq-q:hover{background:var(--card);}
+.faq-icon{width:24px;height:24px;border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--muted2);flex-shrink:0;transition:all .25s;}
+.faq-item.open .faq-icon{background:var(--blue-glow);border-color:rgba(79,140,255,.3);color:var(--blue2);transform:rotate(45deg);}
+.faq-a{display:none;padding:0 24px 20px;font-size:.875rem;color:var(--muted2);line-height:1.8;}
+.faq-item.open .faq-a{display:block;animation:fadeUp .2s ease;}
+
+/* ── CTA SECTION ── */
+.cta-section{padding:120px 0;text-align:center;position:relative;overflow:hidden;}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(79,140,255,.08),transparent 70%);pointer-events:none;}
+.cta-section h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px;}
+.cta-section p{font-size:1.1rem;color:var(--muted2);margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;}
+.cta-email-form{display:flex;gap:10px;max-width:440px;margin:0 auto 20px;flex-wrap:wrap;justify-content:center;}
+.cta-input{flex:1;min-width:220px;padding:13px 18px;background:var(--card);border:1px solid var(--border2);border-radius:10px;font-family:'Inter',sans-serif;font-size:.9rem;color:var(--text);outline:none;transition:border-color .2s;}
+.cta-input:focus{border-color:var(--blue);}
+.cta-input::placeholder{color:var(--muted);}
+.cta-note{font-size:.75rem;color:var(--muted);margin-top:12px;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:60px 0 40px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand .logo{margin-bottom:14px;}
+.footer-desc{font-size:.85rem;color:var(--muted2);line-height:1.75;max-width:280px;}
+.footer-col-title{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:16px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-links a{font-size:.85rem;color:var(--muted2);transition:color .2s;}
+.footer-links a:hover{color:var(--text);}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid var(--border);}
+.footer-copy{font-size:.8rem;color:var(--muted);}
+.footer-social{display:flex;gap:12px;}
+.social-btn{width:34px;height:34px;border:1px solid var(--border);background:var(--card);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--muted2);transition:all .2s;}
+.social-btn:hover{border-color:var(--border2);color:var(--text);}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+.nav-links{display:none;}
+.hamburger{display:flex;}
+.two-col,.tech-grid{grid-template-columns:1fr;}
+.two-col.reverse{direction:ltr;}
+.stats-grid{grid-template-columns:repeat(2,1fr);}
+.steps-grid,.features-grid,.pricing-grid,.testi-grid{grid-template-columns:1fr;}
+.features-grid{background:transparent;border:none;gap:14px;}
+.feature-card{border:1px solid var(--border);border-radius:12px;}
+.footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media(max-width:580px){
+.wrap,.wrap-sm{padding:0 18px;}
+.stats-grid{grid-template-columns:1fr 1fr;}
+.footer-grid{grid-template-columns:1fr;}
+.hero-actions{flex-direction:column;align-items:stretch;padding:0 20px;}
+.cta-email-form{flex-direction:column;}
+.footer-bottom{flex-direction:column;gap:16px;text-align:center;}
+}
+
+/* ══════ AUTH ══════ */
+#authPage{position:fixed;inset:0;z-index:2000;display:none;overflow-y:auto;background:var(--bg);}
+#authPage.show{display:block;}
+#dashPage{position:fixed;inset:0;z-index:2000;display:none;overflow-y:auto;background:var(--bg);}
+#dashPage.show{display:block;}
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;}
+.auth-left{background:var(--bg1);padding:44px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--border);position:relative;overflow:hidden;}
+.auth-left::after{content:'';position:absolute;bottom:-120px;left:-120px;width:400px;height:400px;background:radial-gradient(circle,rgba(79,140,255,.07),transparent 70%);pointer-events:none;}
+.auth-left-logo{display:flex;align-items:center;gap:9px;font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;}
+.auth-right{padding:44px 40px;display:flex;align-items:center;justify-content:center;}
+.auth-box{width:100%;max-width:380px;}
+.fomo-bar{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:8px;padding:9px 13px;font-size:.74rem;color:#fca5a5;margin-bottom:18px;display:flex;align-items:center;gap:8px;line-height:1.5;}
+.fomo-dot{width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0;animation:blink 1s infinite;}
+.google-btn{width:100%;padding:13px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:inherit;font-size:.9rem;font-weight:600;color:var(--text);transition:all .2s;cursor:pointer;margin-bottom:16px;}
+.google-btn:hover{background:var(--card2);border-color:rgba(255,255,255,.25);transform:translateY(-1px);}
+.google-icon{width:20px;height:20px;flex-shrink:0;}
+.auth-divider{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-divider span{font-size:.68rem;color:var(--muted);}
+.auth-input{width:100%;padding:11px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;font-family:inherit;font-size:.85rem;color:var(--text);outline:none;transition:border-color .2s;margin-bottom:10px;}
+.auth-input:focus{border-color:rgba(79,140,255,.4);}
+.auth-input::placeholder{color:var(--muted);}
+.auth-cta{width:100%;padding:13px;background:linear-gradient(135deg,#4f8cff,#818cf8);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(79,140,255,.25);}
+.auth-cta:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(79,140,255,.35);}
+.auth-legal{font-size:.67rem;color:var(--muted);text-align:center;margin-top:11px;line-height:1.7;}
+.auth-legal a{color:var(--muted2);}
+.benefit-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.bp{display:flex;align-items:center;gap:5px;background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);padding:4px 10px;border-radius:100px;font-size:.67rem;color:rgba(52,211,153,.85);font-weight:500;}
+.live-counter{display:flex;align-items:center;gap:6px;font-size:.71rem;color:var(--muted2);margin-top:10px;justify-content:center;}
+.live-dot{width:5px;height:5px;border-radius:50%;background:#34d399;animation:blink 1.5s infinite;}
+/* OTP */
+.otp-row{display:flex;gap:8px;justify-content:center;margin-bottom:18px;}
+.otp-input{width:46px;height:56px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--text);text-align:center;outline:none;transition:border-color .2s,box-shadow .2s;cursor:none!important;}
+.otp-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(79,140,255,.12);}
+.otp-input.filled{border-color:rgba(79,140,255,.4);background:rgba(79,140,255,.05);}
+/* DASHBOARD */
+.dash-layout{display:grid;grid-template-columns:220px 1fr;min-height:100vh;}
+.dash-nav{background:var(--bg1);border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;}
+.dash-logo{display:flex;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;padding:0 18px 20px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.dash-user{display:flex;align-items:center;gap:9px;padding:10px 18px;margin-bottom:8px;}
+.dash-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#4f8cff,#a78bfa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:#fff;flex-shrink:0;}
+.dash-uname{font-size:.8rem;font-weight:600;}
+.dash-uemail{font-size:.65rem;color:var(--muted);}
+.dash-menu{flex:1;padding:0 10px;}
+.dm-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:.82rem;color:var(--muted2);transition:all .2s;cursor:pointer;margin-bottom:2px;border:1px solid transparent;}
+.dm-item:hover{background:var(--card2);color:var(--text);}
+.dm-item.on{background:rgba(79,140,255,.1);border-color:rgba(79,140,255,.2);color:var(--text);}
+.dm-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+.dm-badge{margin-left:auto;background:var(--blue);color:#fff;font-size:.55rem;font-weight:700;padding:2px 6px;border-radius:100px;}
+.dash-nav-bottom{padding:12px 18px;border-top:1px solid var(--border);}
+.logout-btn{background:none;border:none;color:var(--muted);font-size:.78rem;cursor:pointer;font-family:inherit;width:100%;text-align:left;padding:6px 0;transition:color .2s;}
+.logout-btn:hover{color:var(--text);}
+.dash-main{overflow-y:auto;padding:32px;background:var(--bg);}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.dash-welcome{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;letter-spacing:-.02em;}
+.dash-welcome span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.dpanel2{display:none;}.dpanel2.on{display:block;animation:fadeUp .3s ease;}
+.upgrade-banner{background:linear-gradient(135deg,rgba(79,140,255,.1),rgba(167,139,250,.07));border:1px solid rgba(79,140,255,.22);border-radius:14px;padding:22px;margin-bottom:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.ub-text h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;margin-bottom:4px;}
+.ub-text p{font-size:.78rem;color:var(--muted2);line-height:1.65;}
+.ub-btn{padding:10px 20px;background:linear-gradient(135deg,#4f8cff,#818cf8);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;box-shadow:0 4px 16px rgba(79,140,255,.25);}
+.ub-btn:hover{transform:translateY(-1px);}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+.stat-card{background:var(--bg1);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.sc-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-.03em;margin-bottom:3px;}
+.sc-label{font-size:.7rem;color:var(--muted);}
+.reply-tool{background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:16px;}
+.rt-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:600;}
+.rt-textarea{width:100%;padding:11px 13px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.84rem;color:var(--text);outline:none;resize:vertical;min-height:88px;transition:border-color .2s;margin-bottom:12px;}
+.rt-textarea:focus{border-color:rgba(79,140,255,.4);}
+.rt-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:13px;}
+.rt-select{padding:9px 11px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.79rem;color:var(--text);outline:none;appearance:none;width:100%;}
+.rt-btn{padding:11px 20px;background:linear-gradient(135deg,#4f8cff,#818cf8);color:#fff;border:none;border-radius:9px;font-family:inherit;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px;}
+.rt-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(79,140,255,.25);}
+.rt-result{background:rgba(79,140,255,.05);border:1px solid rgba(79,140,255,.18);border-radius:10px;padding:16px;margin-top:13px;font-size:.84rem;color:var(--muted2);line-height:1.8;display:none;position:relative;}
+.rt-result.show{display:block;animation:fadeUp .3s ease;}
+.rt-copy{position:absolute;top:10px;right:10px;padding:4px 10px;background:var(--card2);border:1px solid var(--border);border-radius:5px;font-size:.62rem;color:var(--muted2);cursor:pointer;transition:all .15s;}
+.rt-copy:hover{color:var(--text);}
+.rt-loader{display:none;align-items:center;gap:8px;font-size:.78rem;color:var(--muted2);padding:10px 0;}
+.rt-loader.show{display:flex;}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(79,140,255,.2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hist-item{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:13px;margin-bottom:8px;}
+.hist-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.hist-stars{color:#f59e0b;font-size:.8rem;}
+.hist-date{font-size:.64rem;color:var(--muted);}
+.hist-review{font-size:.77rem;color:var(--muted2);font-style:italic;margin-bottom:7px;line-height:1.6;}
+.hist-reply{font-size:.77rem;color:var(--muted2);line-height:1.6;background:rgba(79,140,255,.04);border:1px solid rgba(79,140,255,.1);border-radius:6px;padding:8px 11px;}
+@media(max-width:800px){.auth-wrap{grid-template-columns:1fr;}.auth-left{display:none;}.dash-layout{grid-template-columns:1fr;}.dash-nav{display:none;}.rt-row{grid-template-columns:1fr;}.stats-row{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="c1"></div>
+
+<!-- no canvas -->
+
+<!-- ═══════ NAV ═══════ -->
+<nav>
+<div class="wrap">
+<div class="nav-inner">
+  <div class="logo">
+    <div class="logo-icon">★</div>
+    ReplyMind
+  </div>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">🌙</button>
+    <button class="btn-ghost" onclick="scrollTo('#pricing')">Sign in</button>
+    <button class="btn-primary" onclick="scrollTo('#cta')">Start free trial</button>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</div>
+</div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+<div class="wrap-sm">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Now with AI-powered tone matching
+  </div>
+  <h1>Every Google review<br>deserves a <span class="grad-text">perfect reply</span></h1>
+  <p class="hero-sub">ReplyMind uses AI to craft professional, brand-aligned responses to your Google reviews — improving your local SEO ranking and customer trust on complete autopilot.</p>
+  <div class="hero-actions">
+    <button class="btn-hero" onclick="scrollTo('#cta')">Start free — 14 days free</button>
+    <button class="btn-hero-ghost" onclick="scrollTo('#how')">See how it works →</button>
+  </div>
+  <div class="hero-trust">
+    <span class="trust-stars">★★★★★</span>
+    <span>Trusted by 840+ local businesses across 24 countries</span>
+  </div>
+</div>
+<div class="wrap" style="margin-top:48px;">
+  <div class="hero-preview">
+    <div class="preview-topbar">
+      <div class="preview-dot" style="background:#ef4444"></div>
+      <div class="preview-dot" style="background:#f59e0b"></div>
+      <div class="preview-dot" style="background:#34d399"></div>
+      <span class="preview-title">ReplyMind Dashboard — Live Response Preview</span>
+    </div>
+    <div class="preview-body">
+      <div class="review-card-ui">
+        <div class="rev-header">
+          <div class="rev-avatar" style="background:#4f8cff">M</div>
+          <div>
+            <div class="rev-name">Michael Torres</div>
+            <div class="rev-date">2 hours ago · Google Review</div>
+          </div>
+          <div class="rev-stars" style="margin-left:auto">★★★★★</div>
+        </div>
+        <div class="rev-text">"Absolutely loved the experience at Bella Cucina! The pasta was incredible and the staff made us feel right at home. We'll definitely be back next weekend!"</div>
+      </div>
+      <div class="ai-response">
+        <div class="ai-label"><span class="ai-dot"></span>AI Response Generated · 8 seconds</div>
+        <div class="ai-text">Thank you so much, Michael! 🌟 We're thrilled to hear you had such a wonderful experience at Bella Cucina. Our team works hard to create that warm, home-like atmosphere — hearing it resonates means the world to us. We can't wait to welcome you back next weekend, and we'll make sure your next visit is just as special. See you soon! 🍝</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ LOGOS ═══════ -->
+<section class="logos-section">
+<div class="wrap">
+  <p class="logos-label">Trusted by businesses like yours</p>
+  <div class="logos-row">
+    <span class="logo-item">The Corner Café</span>
+    <span class="logo-item">LuxeHair Studio</span>
+    <span class="logo-item">Harbor Hotel</span>
+    <span class="logo-item">Smile Dental Co.</span>
+    <span class="logo-item">Oak & Vine Bar</span>
+    <span class="logo-item">Paws Pet Clinic</span>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ STATS ═══════ -->
+<section class="stats-section">
+<div class="wrap reveal">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-num" data-target="73">0%</div>
+      <div class="stat-label">of Google reviews receive<br>no reply from businesses</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="45">0%</div>
+      <div class="stat-label">higher local ranking for<br>businesses that respond</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="840">0+</div>
+      <div class="stat-label">local businesses using<br>ReplyMind today</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" data-target="4.8">0</div>
+      <div class="stat-label">average Trustpilot rating<br>from verified customers</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ PROBLEM ═══════ -->
+<section class="section" id="problem">
+<div class="wrap">
+  <div class="two-col">
+    <div class="reveal">
+      <div class="section-eyebrow">The problem</div>
+      <h2>You're losing customers<br>to <span class="grad-text">unanswered reviews</span></h2>
+      <p class="section-sub">Google's algorithm rewards businesses that actively engage with their reviews. Silence is invisible — and invisibility means lost revenue.</p>
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-icon">⏱</div>
+          <div>
+            <div class="problem-title">No time to respond manually</div>
+            <div class="problem-desc">Running a business leaves zero time for crafting thoughtful review replies every single day.</div>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">📉</div>
+          <div>
+            <div class="problem-title">Silence tanks your SEO</div>
+            <div class="problem-desc">Google ranks businesses with active review engagement significantly higher in local search results.</div>
+          </div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">💸</div>
+          <div>
+            <div class="problem-title">Generic replies hurt more than help</div>
+            <div class="problem-desc">Copy-pasted, robotic responses signal low effort — and customers notice. Brand voice matters.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="visual-block">
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-val red">73%</div>
+            <div class="metric-label">Reviews left without any business response</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val green">+45%</div>
+            <div class="metric-label">Ranking boost for active responders</div>
+          </div>
+        </div>
+        <div class="bar-chart">
+          <div class="bar-label"><span>Response rate comparison</span><span>Impact on ranking</span></div>
+          <div class="bar-item">
+            <div class="bar-name"><span>ReplyMind users</span><span style="color:var(--green)">High</span></div>
+            <div class="bar-bg"><div class="bar-fill b1"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-name"><span>Avg. local business</span><span style="color:var(--muted)">Low</span></div>
+            <div class="bar-bg"><div class="bar-fill b2"></div></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-name"><span>No response at all</span><span style="color:#ef4444">None</span></div>
+            <div class="bar-bg"><div class="bar-fill b3"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ HOW IT WORKS ═══════ -->
+<section class="section" id="how" style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="wrap">
+  <div style="text-align:center" class="reveal">
+    <div class="section-eyebrow">How it works</div>
+    <h2>Set up once. Responses <span class="grad-text">on autopilot</span></h2>
+    <p class="section-sub" style="margin:0 auto">From onboarding to your first AI response in under 10 minutes.</p>
+  </div>
+  <div class="steps-grid reveal">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon">🏪</div>
+      <div class="step-title">Connect your business</div>
+      <div class="step-desc">Link your Google Business Profile in one click. We automatically detect new reviews as they come in — no manual checking needed.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon">🤖</div>
+      <div class="step-title">AI learns your voice</div>
+      <div class="step-desc">Tell us your business name, industry, and preferred tone. Our AI reads your past responses (if any) and matches your exact brand personality.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon">✅</div>
+      <div class="step-title">Approve & publish</div>
+      <div class="step-desc">Review AI-crafted responses in your dashboard. Approve with one click, request edits, or let it fully auto-post — your choice per plan.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ FEATURES ═══════ -->
+<section class="section" id="features">
+<div class="wrap">
+  <div style="text-align:center" class="reveal">
+    <div class="section-eyebrow">Features</div>
+    <h2>Everything you need to<br>dominate <span class="grad-text">local search</span></h2>
+  </div>
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon">🧠</div>
+      <div class="feature-title">Tone-matched AI responses</div>
+      <div class="feature-desc">Your replies sound like you — not a robot. The AI adapts to your business personality, from formal legal offices to casual beachside cafés.</div>
+      <span class="feature-tag">Core AI</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Sub-hour response time</div>
+      <div class="feature-desc">New review detected, response crafted and queued for approval — all within 60 minutes. Never leave a customer waiting days for a reply.</div>
+      <span class="feature-tag">Speed</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⭐</div>
+      <div class="feature-title">1-star damage control</div>
+      <div class="feature-desc">Negative reviews get special handling. The AI crafts empathetic, professional responses designed to de-escalate and win back unhappy customers.</div>
+      <span class="feature-tag">Reputation</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌍</div>
+      <div class="feature-title">32 languages supported</div>
+      <div class="feature-desc">Serving an international clientele? Respond in the reviewer's language automatically. English, Turkish, German, Spanish, French and 27 more.</div>
+      <span class="feature-tag">Global</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Analytics dashboard</div>
+      <div class="feature-desc">Track your average review rating over time, response rate, and estimated SEO impact. Know exactly how ReplyMind is moving the needle.</div>
+      <span class="feature-tag">Analytics</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <div class="feature-title">Multi-location support</div>
+      <div class="feature-desc">Manage all your locations from one dashboard. Perfect for franchise owners and agencies managing multiple business profiles.</div>
+      <span class="feature-tag">Scale</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ TECH / OLLAMA ═══════ -->
+<section class="tech-section" id="tech">
+<div class="wrap">
+  <div class="tech-grid">
+    <div class="reveal">
+      <div class="section-eyebrow">Powered by local AI</div>
+      <h2>Built on n8n + Ollama —<br><span class="grad-text">zero cloud dependency</span></h2>
+      <p class="section-sub" style="margin-bottom:0">ReplyMind runs on a local-first AI stack. Your customer data never leaves your environment — no OpenAI, no data leaks, no per-token costs.</p>
+      <div class="tech-features">
+        <div class="tech-feat">
+          <div class="tech-feat-icon">🔒</div>
+          <div>
+            <div class="tech-feat-title">100% private, local AI</div>
+            <div class="tech-feat-desc">Ollama runs the LLM entirely on your hardware. Customer review data stays on your machine — always.</div>
+          </div>
+        </div>
+        <div class="tech-feat">
+          <div class="tech-feat-icon">⚙️</div>
+          <div>
+            <div class="tech-feat-title">n8n workflow automation</div>
+            <div class="tech-feat-desc">The entire pipeline — review detection → AI generation → approval → posting — runs as an automated n8n workflow.</div>
+          </div>
+        </div>
+        <div class="tech-feat">
+          <div class="tech-feat-icon">💰</div>
+          <div>
+            <div class="tech-feat-title">Zero per-response API costs</div>
+            <div class="tech-feat-desc">Unlike ChatGPT-based tools that charge per token, our local model runs for free after setup. Your margins stay high.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="workflow-vis">
+        <div class="wf-title">// Live workflow execution</div>
+        <div class="wf-step active">
+          <span class="wf-icon">🔔</span>
+          <span class="wf-label">New Google Review Detected</span>
+          <span class="wf-badge">Trigger</span>
+        </div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-step active">
+          <span class="wf-icon">🏷</span>
+          <span class="wf-label">Sentiment Analysis — 4★ Positive</span>
+          <span class="wf-badge">n8n</span>
+        </div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-step active">
+          <span class="wf-icon">🤖</span>
+          <span class="wf-label">Ollama: Generate response (llama3)</span>
+          <span class="wf-badge">Local AI</span>
+        </div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-step">
+          <span class="wf-icon">👁</span>
+          <span class="wf-label">Send to approval dashboard</span>
+          <span class="wf-badge">Email</span>
+        </div>
+        <div class="wf-arrow">↓</div>
+        <div class="wf-step">
+          <span class="wf-icon">✅</span>
+          <span class="wf-label">Post reply to Google Business</span>
+          <span class="wf-badge">API</span>
+        </div>
+        <div style="margin-top:14px;font-size:.7rem;color:var(--muted);font-family:'Inter',sans-serif;border-top:1px solid var(--border);padding-top:12px">
+          Total execution time: <span style="color:var(--green)">8.4 seconds</span> · Cost: <span style="color:var(--green)">$0.00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ PRICING ═══════ -->
+<section class="section" id="pricing">
+<div class="wrap">
+  <div style="text-align:center" class="reveal">
+    <div class="section-eyebrow">Pricing</div>
+    <h2>Simple, honest <span class="grad-text">pricing</span></h2>
+    <p class="section-sub" style="margin:0 auto">No per-response charges. No surprise fees. Cancel anytime.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;font-size:.85rem;color:var(--muted2);">
+      <span>Monthly</span>
+      <div style="width:44px;height:24px;background:var(--blue);border-radius:100px;position:relative;cursor:none;" id="billingToggle" onclick="toggleBilling()">
+        <div style="position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:4px;left:4px;transition:transform .3s;" id="billingDot"></div>
+      </div>
+      <span>Yearly <span style="color:var(--green);font-weight:600">Save 25%</span></span>
+    </div>
+  </div>
+  <div class="pricing-grid reveal" id="pricingGrid">
+    <div class="price-card">
+      <div class="plan-name">Starter</div>
+      <div class="plan-price"><span class="dollar">$</span><span class="num" id="p1">19</span><span class="period">/mo</span></div>
+      <div class="plan-desc">For solo business owners just getting started with review management.</div>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="plan-feature"><span class="check">✓</span>Up to 30 AI responses/month</div>
+        <div class="plan-feature"><span class="check">✓</span>1 Google Business location</div>
+        <div class="plan-feature"><span class="check">✓</span>Manual approval workflow</div>
+        <div class="plan-feature"><span class="check">✓</span>Email notifications</div>
+        <div class="plan-feature"><span class="check">✓</span>Tone customization</div>
+        <div class="plan-feature"><span class="cross">—</span>Auto-posting</div>
+        <div class="plan-feature"><span class="cross">—</span>Analytics dashboard</div>
+        <div class="plan-feature"><span class="cross">—</span>Multi-location</div>
+      </div>
+      <button class="btn-plan outline" onclick="scrollTo('#cta')">Start free trial</button>
+    </div>
+    <div class="price-card featured">
+      <div class="plan-name">Growth</div>
+      <div class="plan-price"><span class="dollar">$</span><span class="num" id="p2">39</span><span class="period">/mo</span></div>
+      <div class="plan-desc">For growing businesses serious about local SEO and reputation.</div>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="plan-feature"><span class="check">✓</span>Unlimited AI responses</div>
+        <div class="plan-feature"><span class="check">✓</span>Up to 3 locations</div>
+        <div class="plan-feature"><span class="check">✓</span>Auto-posting option</div>
+        <div class="plan-feature"><span class="check">✓</span>Analytics dashboard</div>
+        <div class="plan-feature"><span class="check">✓</span>Priority email support</div>
+        <div class="plan-feature"><span class="check">✓</span>1-star damage control mode</div>
+        <div class="plan-feature"><span class="check">✓</span>32 language support</div>
+        <div class="plan-feature"><span class="cross">—</span>White-label / agency</div>
+      </div>
+      <button class="btn-plan primary" onclick="scrollTo('#cta')">Start free trial</button>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">Agency</div>
+      <div class="plan-price"><span class="dollar">$</span><span class="num" id="p3">99</span><span class="period">/mo</span></div>
+      <div class="plan-desc">For agencies managing multiple client accounts and locations.</div>
+      <div class="plan-divider"></div>
+      <div class="plan-features">
+        <div class="plan-feature"><span class="check">✓</span>Unlimited responses</div>
+        <div class="plan-feature"><span class="check">✓</span>Unlimited locations</div>
+        <div class="plan-feature"><span class="check">✓</span>White-label dashboard</div>
+        <div class="plan-feature"><span class="check">✓</span>Client management portal</div>
+        <div class="plan-feature"><span class="check">✓</span>Custom AI tone per client</div>
+        <div class="plan-feature"><span class="check">✓</span>Priority phone + email support</div>
+        <div class="plan-feature"><span class="check">✓</span>API access</div>
+        <div class="plan-feature"><span class="check">✓</span>Bulk import & export</div>
+      </div>
+      <button class="btn-plan outline" onclick="scrollTo('#cta')">Contact sales</button>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:.8rem;color:var(--muted);margin-top:20px">All plans include 14-day free trial · No credit card required · Cancel anytime</p>
+</div>
+</section>
+
+<!-- ═══════ TESTIMONIALS ═══════ -->
+<section class="section" style="background:var(--bg1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="wrap">
+  <div style="text-align:center" class="reveal">
+    <div class="section-eyebrow">Testimonials</div>
+    <h2>What business owners <span class="grad-text">actually say</span></h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"We went from responding to maybe 5% of our reviews to 100% within a week. Our Google ranking jumped from position 12 to position 4 for 'Italian restaurant near me.' Absolutely insane ROI."</div>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#4f8cff,#818cf8)">S</div>
+        <div><div class="testi-name">Sofia Marchetti</div><div class="testi-role">Owner, Bella Cucina · Rome</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"I manage 6 salon locations. Before ReplyMind I had a VA spending 3 hours/week just on review responses. Now it's zero hours. The AI sounds exactly like our brand — clients can't tell the difference."</div>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#a78bfa,#818cf8)">J</div>
+        <div><div class="testi-name">James Worthington</div><div class="testi-role">CEO, LuxeHair Studios · London</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The 1-star handling alone is worth the subscription. We had a really bad review that could've gone viral. ReplyMind crafted such a thoughtful response that the customer actually updated it to 4 stars."</div>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,#34d399,#4f8cff)">A</div>
+        <div><div class="testi-name">Amira Hassan</div><div class="testi-role">Manager, Oasis Dental · Dubai</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<section class="section" id="faq">
+<div class="wrap-sm">
+  <div style="text-align:center" class="reveal">
+    <div class="section-eyebrow">FAQ</div>
+    <h2>Questions we get <span class="grad-text">all the time</span></h2>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Do the AI responses actually sound human?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Yes — this is our core focus. During onboarding you describe your brand tone (casual, warm, formal, etc.) and provide a few example phrases you'd normally use. The AI is then fine-tuned to match your voice. We also analyze the specific review content so responses are always contextually relevant, not copy-pasted.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Does ReplyMind post directly to Google, or do I approve first?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Both options are available. On the Starter plan, every response goes through your manual approval — you get an email with the draft and click Approve or Edit. On Growth and Agency plans, you can enable Auto-post mode where responses are published directly. You can also set rules, for example: auto-post 4-5 star reviews, but manually approve 1-3 star reviews.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How does it handle negative or fake reviews?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Negative reviews (1-2 stars) are automatically flagged for special handling. Our 1-star damage control mode crafts empathetic, de-escalating responses that acknowledge the customer's frustration, offer a resolution path, and protect your public reputation. For clearly fake reviews, we draft a professional dispute response and include guidance on flagging the review to Google.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        How does the local AI / Ollama setup work?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">ReplyMind is powered by a local-first AI stack using Ollama (runs LLaMA 3 or Mistral locally on your machine) and n8n for workflow automation. This means your customer data never goes to OpenAI or any third-party AI provider. The setup takes about 15 minutes and we provide a complete step-by-step guide. For non-technical users, we also offer a cloud-hosted version with the same privacy guarantees via our secure infrastructure.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Can I use ReplyMind for Yelp, TripAdvisor, or other platforms?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Currently ReplyMind is optimized for Google Business Profile reviews — this is where the SEO impact is highest and where most businesses have the most reviews. Yelp and TripAdvisor integrations are on our public roadmap, expected in Q3 2025. Agency plan users get early access to all new platform integrations.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Is there a free trial? What happens when it ends?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Yes — every plan starts with a 14-day free trial, no credit card required. During the trial you get full access to all Growth plan features. When the trial ends, you choose a plan and add payment, or your account pauses automatically — we never charge without your explicit consent. Your data and response history are kept for 30 days after a paused account.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<section class="cta-section" id="cta">
+<div class="wrap-sm">
+  <div class="reveal">
+    <h2>Start responding to every<br>review — <span class="grad-text">starting today</span></h2>
+    <p>Join 840+ businesses already improving their local SEO with AI-powered review responses. 14-day free trial, no credit card needed.</p>
+    <div class="cta-email-form">
+      <input class="cta-input" type="email" id="emailInput" placeholder="Enter your business email">
+      <button class="btn-hero" onclick="handleSignup()">Get started free →</button>
+    </div>
+    <p class="cta-note">✓ Free 14 days &nbsp;&nbsp; ✓ No credit card &nbsp;&nbsp; ✓ Cancel anytime</p>
+    <div id="signupMsg" style="display:none;margin-top:12px;color:var(--green);font-size:.88rem;">🎉 Great! Check your email to complete setup.</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+<div class="wrap">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="margin-bottom:12px;"><div class="logo-icon">★</div>ReplyMind</div>
+      <p class="footer-desc">AI-powered Google review responses for local businesses. Improve your SEO, protect your reputation, and win back customers — automatically.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-links">
+        <a href="#how">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#tech">Technology</a>
+        <a href="#">Changelog</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#cta">Contact</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+        <a href="#">Affiliate program</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">GDPR</a>
+        <a href="#">Security</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 ReplyMind. All rights reserved.</span>
+    <div class="footer-social">
+      <a class="social-btn" href="#">𝕏</a>
+      <a class="social-btn" href="#">in</a>
+      <a class="social-btn" href="#">▶</a>
+    </div>
+  </div>
+</div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const c1=document.getElementById('c1');
+document.addEventListener('mousemove',e=>{c1.style.left=e.clientX+'px';c1.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,input,textarea,.price-card,.step-card,.feature-card,.testi-card,.faq-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c1.style.transform='translate(-50%,-50%) scale(2.5)';c1.style.background='rgba(255,255,255,.4)';});
+  el.addEventListener('mouseleave',()=>{c1.style.transform='translate(-50%,-50%) scale(1)';c1.style.background='#fff';});
+});
+
+// ── THEME ──
+let dark=true;
+function toggleTheme(){
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';
+}
+
+// ── SCROLL ──
+function scrollTo(sel){const el=document.querySelector(sel);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+
+// ── MENU ──
+function toggleMenu(){const nl=document.querySelector('.nav-links');nl.style.display=nl.style.display==='flex'?'none':'flex';}
+
+// ── REVEAL ON SCROLL ──
+const revealEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});
+revealEls.forEach(el=>obs.observe(el));
+
+// ── COUNTER ANIMATION ──
+function animateCounter(el,target,suffix){
+  const isFloat=target%1!==0;
+  let current=0;const step=target/60;
+  const timer=setInterval(()=>{
+    current=Math.min(current+step,target);
+    el.textContent=(isFloat?current.toFixed(1):Math.round(current))+suffix;
+    if(current>=target)clearInterval(timer);
+  },24);
+}
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target.querySelector('[data-target]');
+      if(el&&!el.dataset.animated){
+        el.dataset.animated=true;
+        const t=parseFloat(el.dataset.target);
+        const s=el.dataset.target.includes('.')?'':el.textContent.replace(/[0-9.]/g,'');
+        animateCounter(el,t,s.includes('+')?'+':s.includes('%')?'%':'');
+      }
+    }
+  });
+},{threshold:.5});
+document.querySelectorAll('.stat-item').forEach(el=>statObs.observe(el));
+
+// ── FAQ ──
+function toggleFaq(btn){const item=btn.closest('.faq-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open');}
+
+// ── BILLING TOGGLE ──
+let yearly=false;
+const prices={p1:[19,14],p2:[39,29],p3:[99,74]};
+function toggleBilling(){
+  yearly=!yearly;
+  document.getElementById('billingDot').style.transform=yearly?'translateX(20px)':'none';
+  ['p1','p2','p3'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=prices[id][yearly?1:0];});
+}
+
+// ── SIGNUP ──
+function handleSignup(){
+  const email=document.getElementById('emailInput').value.trim();
+  if(!email||!email.includes('@')){alert('Please enter a valid email address.');return;}
+  document.getElementById('signupMsg').style.display='block';
+  document.getElementById('emailInput').value='';
+}
+</script>
+
+<!-- AUTH PAGE -->
+<div id="authPage">
+<div class="auth-wrap">
+  <div class="auth-left">
+    <div class="auth-left-logo"><svg width="26" height="26" viewBox="0 0 28 28" fill="none"><defs><linearGradient id="dlg" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4f8cff"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient></defs><rect width="28" height="28" rx="7" fill="url(#dlg)"/><path d="M7 9C7 8.44772 7.44772 8 8 8H20C20.5523 8 21 8.44772 21 9V16C21 16.5523 20.5523 17 20 17H15.5L12 20.5V17H8C7.44772 17 7 16.5523 7 16V9Z" fill="white" fill-opacity="0.95"/><circle cx="11" cy="12.5" r="1.2" fill="url(#dlg)"/><circle cx="14" cy="12.5" r="1.2" fill="url(#dlg)"/><circle cx="17" cy="12.5" r="1.2" fill="url(#dlg)"/></svg> ReplyMind</div>
+    <div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.18);padding:5px 13px;border-radius:100px;font-size:.68rem;color:rgba(52,211,153,.9);font-weight:600;margin-bottom:18px;">
+        <span style="width:5px;height:5px;border-radius:50%;background:#34d399;display:inline-block;animation:blink 1.5s infinite;"></span>840+ businesses trust ReplyMind
+      </div>
+      <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:14px;">Your reviews are<br>talking. Are you<br><span class="grad-text">listening?</span></div>
+      <div style="font-size:.85rem;color:var(--muted2);line-height:1.8;margin-bottom:24px;">Every unanswered review costs you customers and local SEO ranking. ReplyMind fixes that — in your voice, 24/7.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:22px;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:13px;"><div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#fff;margin-bottom:2px;">73%</div><div style="font-size:.68rem;color:var(--muted2);">reviews go unanswered</div></div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:13px;"><div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#34d399;margin-bottom:2px;">+45%</div><div style="font-size:.68rem;color:var(--muted2);">SEO boost when you respond</div></div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:13px;"><div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#4f8cff;margin-bottom:2px;">&lt;60s</div><div style="font-size:.68rem;color:var(--muted2);">AI response time</div></div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:13px;"><div style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:#a78bfa;margin-bottom:2px;">32</div><div style="font-size:.68rem;color:var(--muted2);">languages supported</div></div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:16px;">
+      <div style="color:#f59e0b;font-size:.82rem;margin-bottom:8px;">★★★★★</div>
+      <div style="font-size:.8rem;color:var(--muted2);line-height:1.75;font-style:italic;margin-bottom:12px;">"Went from #12 to #4 in local search within 3 weeks. The AI sounds exactly like us."</div>
+      <div style="display:flex;align-items:center;gap:9px;"><div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#4f8cff,#818cf8);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;color:#fff;">S</div><div><div style="font-size:.77rem;font-weight:600;">Sofia Marchetti</div><div style="font-size:.63rem;color:var(--muted);">Owner, Bella Cucina · Rome</div></div></div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-box">
+
+      <!-- STEP 1: choose -->
+      <div id="auth-step-choose">
+        <div style="text-align:center;margin-bottom:24px;">
+          <div style="font-family:'Syne',sans-serif;font-size:1.65rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;">Welcome to ReplyMind</div>
+          <div style="font-size:.8rem;color:var(--muted2);line-height:1.65;">Sign in or create your free account to get started.</div>
+        </div>
+        <div class="fomo-bar"><span class="fomo-dot"></span><span><strong style="color:#fca5a5" id="fomoCount">23</strong> businesses signed up in the last 24h.</span></div>
+        <button class="google-btn" onclick="signInWithGoogle()">
+          <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continue with Google
+        </button>
+        <div class="auth-divider"><span>or continue with email</span></div>
+        <div style="position:relative;margin-bottom:10px;">
+          <input class="auth-input" id="auth-email-input" type="email" placeholder="Enter your business email" style="margin-bottom:0;padding-right:105px;">
+          <button id="sendCodeBtn" onclick="sendVerifyCode()" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:7px 13px;background:var(--blue);color:#fff;border:none;border-radius:7px;font-family:inherit;font-size:.74rem;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap;">Send code</button>
+        </div>
+        <div id="auth-email-error" style="display:none;font-size:.71rem;color:#ef4444;margin-bottom:10px;padding:7px 11px;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:7px;"></div>
+        <div class="live-counter"><span class="live-dot"></span><span id="liveViewing">14 people</span>&nbsp;viewing right now</div>
+        <div class="benefit-pills" style="justify-content:center;">
+          <span class="bp">✓ Free to start</span><span class="bp">✓ No credit card</span><span class="bp">✓ 2 min setup</span>
+        </div>
+        <p class="auth-legal" style="margin-top:14px;">By signing up you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+
+      <!-- STEP 2: verify -->
+      <div id="auth-step-verify" style="display:none;">
+        <button onclick="goBackToChoose()" style="background:none;border:none;color:var(--muted2);font-size:.76rem;cursor:pointer;font-family:inherit;margin-bottom:20px;display:flex;align-items:center;gap:5px;padding:0;">← Back</button>
+        <div style="text-align:center;margin-bottom:22px;">
+          <div style="font-size:2.2rem;margin-bottom:10px;">📬</div>
+          <div style="font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin-bottom:7px;">Check your inbox</div>
+          <div style="font-size:.8rem;color:var(--muted2);line-height:1.65;">We sent a 6-digit verification code to<br><strong style="color:var(--text)" id="sentToEmail">—</strong></div>
+        </div>
+        <div class="otp-row">
+          <input class="otp-input" maxlength="1" type="text" inputmode="numeric" id="otp0" oninput="otpNext(this,0)" onkeydown="otpBack(event,0)">
+          <input class="otp-input" maxlength="1" type="text" inputmode="numeric" id="otp1" oninput="otpNext(this,1)" onkeydown="otpBack(event,1)">
+          <input class="otp-input" maxlength="1" type="text" inputmode="numeric" id="otp2" oninput="otpNext(this,2)" onkeydown="otpBack(event,2)">
+          <input class="otp-input" maxlength="1" type="text" inputmode="numeric" id="otp3" oninput="otpNext(this,3)" onkeydown="otpBack(event,3)">
+          <input class="otp-input" maxlength="1" type="text" inputmode="numeric" id="otp4" oninput="otpNext(this,4)" onkeydown="otpBack(event,4)">
+          <input class="otp-input" maxlength="1" type="text" inputmode="numeric" id="otp5" oninput="otpNext(this,5)" onkeydown="otpBack(event,5)">
+        </div>
+        <button class="auth-cta" onclick="verifyCode()">Verify &amp; Sign in →</button>
+        <div id="verify-error" style="display:none;font-size:.71rem;color:#ef4444;margin-top:10px;text-align:center;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.18);border-radius:7px;padding:8px;"></div>
+        <div style="text-align:center;margin-top:13px;font-size:.73rem;color:var(--muted);">Didn't get it? Check spam or <span onclick="sendVerifyCode()" style="color:var(--blue2);cursor:pointer;text-decoration:underline;">resend code</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- DASHBOARD PAGE -->
+<div id="dashPage">
+<div class="dash-layout">
+  <div class="dash-nav">
+    <div class="dash-logo"><svg width="26" height="26" viewBox="0 0 28 28" fill="none"><defs><linearGradient id="dlg" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4f8cff"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient></defs><rect width="28" height="28" rx="7" fill="url(#dlg)"/><path d="M7 9C7 8.44772 7.44772 8 8 8H20C20.5523 8 21 8.44772 21 9V16C21 16.5523 20.5523 17 20 17H15.5L12 20.5V17H8C7.44772 17 7 16.5523 7 16V9Z" fill="white" fill-opacity="0.95"/><circle cx="11" cy="12.5" r="1.2" fill="url(#dlg)"/><circle cx="14" cy="12.5" r="1.2" fill="url(#dlg)"/><circle cx="17" cy="12.5" r="1.2" fill="url(#dlg)"/></svg> ReplyMind</div>
+    <div class="dash-user">
+      <div class="dash-avatar" id="dashAvatar">?</div>
+      <div><div class="dash-uname" id="dashName">User</div><div class="dash-uemail" id="dashEmail"></div></div>
+    </div>
+    <div class="dash-menu">
+      <div class="dm-item on" onclick="switchDash('home',this)"><span class="dm-icon">🏠</span>Dashboard</div>
+      <div class="dm-item" onclick="switchDash('reply',this)"><span class="dm-icon">✨</span>AI Reply Tool<span class="dm-badge">AI</span></div>
+      <div class="dm-item" onclick="switchDash('history',this)"><span class="dm-icon">📋</span>Reply History</div>
+      <div class="dm-item" onclick="switchDash('analytics',this)"><span class="dm-icon">📊</span>Analytics</div>
+      <div class="dm-item" onclick="switchDash('billing',this)"><span class="dm-icon">💳</span>Billing</div>
+      <div class="dm-item" onclick="switchDash('dsettings',this)"><span class="dm-icon">⚙️</span>Settings</div>
+    </div>
+    <div class="dash-nav-bottom"><button class="logout-btn" onclick="logout()">← Sign out</button></div>
+  </div>
+  <div class="dash-main">
+    <div>
+      <!-- HOME -->
+      <div class="dpanel2 on" id="dp-home">
+        <div class="dash-header">
+          <div class="dash-welcome">Hey, <span id="dashWelcomeName">there</span> 👋</div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);padding:5px 12px;border-radius:100px;font-size:.68rem;color:#fca5a5;font-weight:600;">🔒 Free Plan</div>
+        </div>
+        <div class="upgrade-banner">
+          <div class="ub-text"><h3>🚀 Unlock AI auto-replies</h3><p>Upgrade to Growth to start responding to every review automatically and boost your local SEO ranking today.</p></div>
+          <button class="ub-btn" onclick="switchDash('billing',document.querySelector('.dm-item:nth-child(5)'))">Upgrade — $39/mo →</button>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card"><div class="sc-num" style="color:var(--blue2)">0</div><div class="sc-label">Replies this month</div></div>
+          <div class="stat-card"><div class="sc-num" style="color:var(--green)">—</div><div class="sc-label">Avg. review rating</div></div>
+          <div class="stat-card"><div class="sc-num" style="color:#a78bfa">—</div><div class="sc-label">SEO rank change</div></div>
+        </div>
+        <div class="reply-tool">
+          <div style="font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;margin-bottom:4px;">Try the AI Reply Tool →</div>
+          <div style="font-size:.78rem;color:var(--muted2);margin-bottom:14px;">Paste any review and get a perfect AI response instantly.</div>
+          <button class="rt-btn" onclick="switchDash('reply',document.querySelectorAll('.dm-item')[1])">✨ Open AI Reply Tool</button>
+        </div>
+      </div>
+      <!-- REPLY -->
+      <div class="dpanel2" id="dp-reply">
+        <div class="dash-header"><div class="dash-welcome">AI <span>Reply Tool</span></div></div>
+        <div class="reply-tool">
+          <div class="rt-label">Paste review text</div>
+          <textarea class="rt-textarea" id="rt-review" placeholder="e.g. Great food but the wait was long. Staff was super friendly!"></textarea>
+          <div class="rt-row">
+            <div><div class="rt-label">Star rating</div><select class="rt-select" id="rt-stars"><option value="5">★★★★★ 5 stars</option><option value="4">★★★★☆ 4 stars</option><option value="3">★★★☆☆ 3 stars</option><option value="2">★★☆☆☆ 2 stars</option><option value="1">★☆☆☆☆ 1 star</option></select></div>
+            <div><div class="rt-label">Business type</div><select class="rt-select" id="rt-type"><option>Restaurant</option><option>Hair salon</option><option>Dental clinic</option><option>Hotel</option><option>Retail shop</option><option>Other</option></select></div>
+            <div><div class="rt-label">Tone</div><select class="rt-select" id="rt-tone"><option value="warm and friendly">Warm & Friendly</option><option value="professional">Professional</option><option value="casual">Casual</option><option value="empathetic">Empathetic</option></select></div>
+          </div>
+          <button class="rt-btn" onclick="dashGenerate()"><span>✨</span><span>Generate AI Reply</span></button>
+          <div class="rt-loader" id="rt-loader"><div class="spin"></div>Generating...</div>
+          <div class="rt-result" id="rt-result"><button class="rt-copy" onclick="copyDashReply()">Copy</button><span id="rt-result-text"></span></div>
+        </div>
+      </div>
+      <!-- HISTORY -->
+      <div class="dpanel2" id="dp-history">
+        <div class="dash-header"><div class="dash-welcome">Reply <span>History</span></div></div>
+        <div id="historyList"><div style="text-align:center;padding:40px;color:var(--muted);font-size:.82rem;"><div style="font-size:2rem;margin-bottom:10px;opacity:.3;">📋</div>No replies yet. Use the AI Reply Tool.</div></div>
+      </div>
+      <!-- ANALYTICS -->
+      <div class="dpanel2" id="dp-analytics">
+        <div class="dash-header"><div class="dash-welcome">Analytics <span>Overview</span></div></div>
+        <div class="upgrade-banner"><div class="ub-text"><h3>📊 Analytics on Growth+</h3><p>Track response rates, rating trends, and SEO impact over time.</p></div><button class="ub-btn" onclick="switchDash('billing',document.querySelectorAll('.dm-item')[4])">Upgrade →</button></div>
+      </div>
+      <!-- BILLING -->
+      <div class="dpanel2" id="dp-billing">
+        <div class="dash-header"><div class="dash-welcome">Billing &amp; <span>Plans</span></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+          <div style="background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:22px;"><div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">Starter</div><div style="font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;margin-bottom:4px;">$19<span style="font-size:.8rem;font-weight:400;color:var(--muted)">/mo</span></div><div style="font-size:.75rem;color:var(--muted2);margin-bottom:16px;line-height:1.6;">30 AI responses/month, 1 location</div><button class="rt-btn" style="width:100%;justify-content:center;font-size:.8rem;padding:9px;" onclick="openPayModal('Starter',19)">Choose plan</button></div>
+          <div style="background:var(--bg);border:2px solid var(--blue);border-radius:14px;padding:22px;position:relative;box-shadow:0 0 0 1px var(--blue),0 16px 48px rgba(79,140,255,.1);"><div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 12px;border-radius:100px;white-space:nowrap;">Most Popular</div><div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">Growth</div><div style="font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;margin-bottom:4px;">$39<span style="font-size:.8rem;font-weight:400;color:var(--muted)">/mo</span></div><div style="font-size:.75rem;color:var(--muted2);margin-bottom:16px;line-height:1.6;">Unlimited replies, 3 locations, auto-post</div><button class="rt-btn" style="width:100%;justify-content:center;font-size:.8rem;padding:9px;" onclick="openPayModal('Growth',39)">Choose plan</button></div>
+          <div style="background:var(--bg1);border:1px solid var(--border);border-radius:14px;padding:22px;"><div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;">Agency</div><div style="font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;margin-bottom:4px;">$99<span style="font-size:.8rem;font-weight:400;color:var(--muted)">/mo</span></div><div style="font-size:.75rem;color:var(--muted2);margin-bottom:16px;line-height:1.6;">Unlimited everything, white-label</div><button class="rt-btn" style="width:100%;justify-content:center;font-size:.8rem;padding:9px;" onclick="openPayModal('Agency',99)">Choose plan</button></div>
+        </div>
+      </div>
+      <!-- SETTINGS -->
+      <div class="dpanel2" id="dp-dsettings">
+        <div class="dash-header"><div class="dash-welcome">Account <span>Settings</span></div></div>
+        <div class="reply-tool">
+          <div style="font-size:.84rem;font-weight:600;margin-bottom:14px;">Profile</div>
+          <div class="rt-label">Display Name</div>
+          <input class="rt-textarea" style="min-height:0;padding:10px 13px;resize:none;width:100%;margin-bottom:10px;" id="set-name" type="text">
+          <div class="rt-label">Email</div>
+          <input class="rt-textarea" style="min-height:0;padding:10px 13px;resize:none;width:100%;opacity:.6;margin-bottom:14px;" id="set-email" type="email" readonly>
+          <button class="rt-btn" onclick="saveSettings()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
